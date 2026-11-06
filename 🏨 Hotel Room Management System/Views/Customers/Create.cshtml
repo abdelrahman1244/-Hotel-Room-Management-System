@@ -1,0 +1,205 @@
+﻿@model Customer
+
+<style>
+    .hrms-create-wrap {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+        .hrms-create-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-create-card {
+        background: #FBF8F1;
+        border: 1px solid rgba(198, 161, 91, .3);
+        border-radius: .9rem;
+    }
+
+        .hrms-create-card label {
+            color: #12192B;
+            font-weight: 600;
+        }
+
+        .hrms-create-card .form-control {
+            border-color: rgba(198, 161, 91, .4);
+        }
+
+            .hrms-create-card .form-control:focus {
+                border-color: #C6A15B;
+                box-shadow: 0 0 0 .2rem rgba(198, 161, 91, .15);
+            }
+
+    .hrms-image-preview {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #C6A15B;
+        display: none;
+    }
+
+    .hrms-btn-create {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-create:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-back {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-back:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+</style>
+
+
+<div class="hrms-create-wrap">
+
+    <h1 class="text-center mb-4">
+        Add Customer
+    </h1>
+
+    <div class="card shadow p-4 hrms-create-card">
+
+        <form method="post"
+              asp-controller="Customers"
+              asp-action="AddNew"
+              enctype="multipart/form-data">
+
+
+            <!-- Full Name -->
+
+            <div class="mb-3">
+
+                <label asp-for="FullName"
+                       class="form-label">
+                    Full Name
+                </label>
+
+                <input asp-for="FullName"
+                       class="form-control"
+                       placeholder="Enter customer name" />
+
+                <span asp-validation-for="FullName"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Phone -->
+
+            <div class="mb-3">
+
+                <label asp-for="Phone"
+                       class="form-label">
+                    Phone
+                </label>
+
+                <input asp-for="Phone"
+                       class="form-control"
+                       placeholder="Enter phone number" />
+
+                <span asp-validation-for="Phone"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Image -->
+
+            <div class="mb-3">
+
+                <label asp-for="ImageFile"
+                       class="form-label">
+                    Profile Picture
+                </label>
+
+                <input asp-for="ImageFile"
+                       type="file"
+                       id="imageFileInput"
+                       accept=".png,.jpg,.jpeg"
+                       class="form-control"
+                       onchange="addImage()" />
+
+                <span asp-validation-for="ImageFile"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Image Preview -->
+
+            <div class="text-center mb-4">
+
+                <img src=""
+                     id="customerImg"
+                     class="shadow hrms-image-preview"
+                     alt="Customer Image Preview" />
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="d-flex justify-content-center gap-2">
+
+                <button type="submit"
+                        class="btn hrms-btn-create">
+                    Add Customer
+                </button>
+
+                <a asp-controller="Customers"
+                   asp-action="Index"
+                   class="btn hrms-btn-back">
+                    Back
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+
+        function addImage() {
+
+            const input =
+                document.getElementById("imageFileInput");
+
+            const image =
+                document.getElementById("customerImg");
+
+            if (input.files && input.files[0]) {
+
+                image.src =
+                    window.URL.createObjectURL(input.files[0]);
+
+                image.style.display = "inline-block";
+            }
+        }
+
+    </script>
+}

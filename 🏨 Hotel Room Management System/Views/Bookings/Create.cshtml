@@ -1,0 +1,208 @@
+﻿@model Booking
+
+<style>
+    .hrms-form-wrap {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+        .hrms-form-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-form-card {
+        background: #FBF8F1;
+        border: 1px solid rgba(198, 161, 91, .3);
+        border-radius: .9rem;
+    }
+
+        .hrms-form-card label {
+            color: #12192B;
+            font-weight: 600;
+        }
+
+        .hrms-form-card .form-control,
+        .hrms-form-card .form-select {
+            border-color: rgba(198, 161, 91, .5);
+        }
+
+            .hrms-form-card .form-control:focus,
+            .hrms-form-card .form-select:focus {
+                border-color: #C6A15B;
+                box-shadow: 0 0 0 .2rem rgba(198, 161, 91, .2);
+            }
+
+    .hrms-btn-save {
+        background: #C6A15B;
+        border-color: #C6A15B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-save:hover {
+            background: #E7CC8B;
+            border-color: #E7CC8B;
+            color: #12192B;
+        }
+
+    .hrms-btn-back {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-back:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+</style>
+
+
+<div class="hrms-form-wrap">
+
+    <h1 class="text-center mb-4">
+        Create Booking
+    </h1>
+
+    <div class="card shadow p-4 hrms-form-card">
+
+        <form method="post"
+              asp-controller="Bookings"
+              asp-action="AddNew">
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3">
+            </div>
+
+
+            <!-- Room -->
+
+            <div class="mb-3">
+
+                <label asp-for="RoomId"
+                       class="form-label">
+                    Room
+                </label>
+
+                <select asp-for="RoomId"
+                        class="form-select">
+
+                    <option value="">
+                        Select a Room
+                    </option>
+
+                    @foreach (var room in ViewBag.Rooms)
+                    {
+                        <option value="@room.Id">
+                            @room.RoomNumber
+                        </option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="RoomId"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Customer -->
+
+            <div class="mb-3">
+
+                <label asp-for="CustomerId"
+                       class="form-label">
+                    Customer
+                </label>
+
+                <select asp-for="CustomerId"
+                        class="form-select">
+
+                    <option value="">
+                        Select a Customer
+                    </option>
+
+                    @foreach (var customer in ViewBag.Customers)
+                    {
+                        <option value="@customer.Id">
+                            @customer.FullName
+                        </option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="CustomerId"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Check In -->
+
+            <div class="mb-3">
+
+                <label asp-for="CheckIn"
+                       class="form-label">
+                    Check In
+                </label>
+
+                <input asp-for="CheckIn"
+                       type="datetime-local"
+                       class="form-control" />
+
+                <span asp-validation-for="CheckIn"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Check Out -->
+
+            <div class="mb-3">
+
+                <label asp-for="CheckOut"
+                       class="form-label">
+                    Check Out
+                </label>
+
+                <input asp-for="CheckOut"
+                       type="datetime-local"
+                       class="form-control" />
+
+                <span asp-validation-for="CheckOut"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="d-flex gap-2">
+
+                <button type="submit"
+                        class="btn hrms-btn-save">
+                    Create Booking
+                </button>
+
+                <a asp-controller="Bookings"
+                   asp-action="Index"
+                   class="btn hrms-btn-back">
+                    Back
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

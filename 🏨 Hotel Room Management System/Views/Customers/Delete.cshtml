@@ -1,0 +1,158 @@
+﻿
+@model Customer
+
+<style>
+    .hrms-delete-wrap {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+        .hrms-delete-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-delete-card {
+        background: #FBF8F1;
+        border: 1px solid rgba(198, 161, 91, .3);
+        border-radius: .9rem;
+    }
+
+        .hrms-delete-card img {
+            border: 3px solid #C6A15B;
+        }
+
+    .hrms-delete-table thead th {
+        background: #12192B !important;
+        color: #FBF8F1 !important;
+        font-weight: 600;
+        font-size: .85rem;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        border-color: #12192B !important;
+    }
+
+    .hrms-delete-table td,
+    .hrms-delete-table th {
+        border-color: rgba(198, 161, 91, .3);
+        vertical-align: middle;
+    }
+
+    .hrms-warning {
+        background: #F3ECDA;
+        border: 1px solid rgba(198, 161, 91, .5);
+        color: #12192B;
+    }
+
+    .hrms-btn-confirm-delete {
+        background: #B23A48;
+        border-color: #B23A48;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-confirm-delete:hover {
+            background: #8F2E39;
+            border-color: #8F2E39;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-back {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-back:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+</style>
+
+
+<div class="hrms-delete-wrap">
+
+    <h1 class="text-center mb-4">
+        Are you sure you want to delete this customer?
+    </h1>
+
+    <div class="card shadow p-4 mx-auto hrms-delete-card"
+         style="max-width: 700px;">
+
+        <div class="text-center mb-4">
+
+            <img src="@Model.ImagePath"
+                 alt="Customer Image"
+                 class="rounded-circle shadow"
+                 style="width: 140px;
+            height: 140px;
+            object-fit: cover;" />
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered text-center align-middle mb-0 hrms-delete-table">
+
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Full Name</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.FullName</td>
+                        <td>@Model.Phone</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="alert hrms-warning text-center mt-4 mb-4">
+
+            <strong>Warning!</strong>
+            This action cannot be undone.
+
+        </div>
+
+
+        <div class="d-flex justify-content-center gap-2">
+
+            <form method="post"
+                  asp-controller="Customers"
+                  asp-action="Delete">
+
+                <input type="hidden"
+                       asp-for="Id" />
+
+                <button type="submit"
+                        class="btn hrms-btn-confirm-delete">
+                    Confirm Delete
+                </button>
+
+            </form>
+
+            <a asp-controller="Customers"
+               asp-action="Index"
+               class="btn hrms-btn-back">
+                Back to List
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,209 @@
+﻿@model List<Room>
+
+<style>
+    .hrms-rooms-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+        .hrms-rooms-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-rooms-table {
+        border: 1px solid rgba(198, 161, 91, .3);
+    }
+
+        .hrms-rooms-table thead th {
+            background: #12192B !important;
+            color: #FBF8F1 !important;
+            font-weight: 600;
+            font-size: .85rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            border-color: #12192B !important;
+        }
+
+        .hrms-rooms-table td,
+        .hrms-rooms-table th {
+            border-color: rgba(198, 161, 91, .3);
+            vertical-align: middle;
+        }
+
+    .hrms-btn-edit {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+    }
+
+        .hrms-btn-edit:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-details {
+        background: #C6A15B;
+        border-color: #C6A15B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-details:hover {
+            background: #A98545;
+            border-color: #A98545;
+            color: #12192B;
+        }
+
+    .hrms-btn-delete {
+        background: #B23A48;
+        border-color: #B23A48;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-delete:hover {
+            background: #8F2E39;
+            border-color: #8F2E39;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-create {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-create:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-home {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-home:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+
+    .hrms-price {
+        font-weight: 600;
+        color: #12192B;
+    }
+</style>
+
+
+<div class="hrms-rooms-wrap">
+
+    <h1 class="text-center mb-4">
+        Rooms
+    </h1>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover text-center align-middle shadow hrms-rooms-table">
+
+            <thead>
+                <tr>
+                    <th>Room ID</th>
+                    <th>Room Number</th>
+                    <th>Type</th>
+                    <th>Price Per Night</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @foreach (var room in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @room.Id
+                        </td>
+
+                        <td>
+                            @room.RoomNumber
+                        </td>
+
+                        <td>
+                            @room.Type
+                        </td>
+
+                        <td class="hrms-price">
+                            @room.PricePerNight.ToString("C")
+                        </td>
+
+                        <td>
+
+                            <div class="d-flex justify-content-center gap-2">
+
+                                <a asp-controller="Rooms"
+                                   asp-action="GetEditView"
+                                   asp-route-id="@room.Id"
+                                   class="btn btn-sm hrms-btn-edit">
+                                    Edit
+                                </a>
+
+
+                                <a asp-controller="Rooms"
+                                   asp-action="GetDetailsView"
+                                   asp-route-id="@room.Id"
+                                   class="btn btn-sm hrms-btn-details">
+                                    Details
+                                </a>
+
+
+                                <a asp-controller="Rooms"
+                                   asp-action="GetDeleteView"
+                                   asp-route-id="@room.Id"
+                                   class="btn btn-sm hrms-btn-delete">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="d-flex gap-2 mt-3">
+
+        <a asp-controller="Rooms"
+           asp-action="GetCreateView"
+           class="btn hrms-btn-create">
+            Create Room
+        </a>
+
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn hrms-btn-home">
+            Back to Home
+        </a>
+
+    </div>
+
+</div>

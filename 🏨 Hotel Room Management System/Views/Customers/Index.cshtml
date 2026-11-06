@@ -1,0 +1,184 @@
+﻿@model List<Customer>
+
+<style>
+    .hrms-customers-wrap h1 {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 500;
+        color: #12192B;
+    }
+
+    .hrms-customers-table {
+        border: 1px solid rgba(198, 161, 91, .3);
+    }
+
+        .hrms-customers-table thead th {
+            background: #12192B !important;
+            color: #FBF8F1 !important;
+            font-weight: 600;
+            font-size: .85rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            border-color: #12192B !important;
+        }
+
+        .hrms-customers-table td,
+        .hrms-customers-table th {
+            border-color: rgba(198, 161, 91, .3);
+            vertical-align: middle;
+        }
+
+    .hrms-customer-img {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #C6A15B;
+    }
+
+    .hrms-btn-edit {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+    }
+
+        .hrms-btn-edit:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-details {
+        background: #C6A15B;
+        border-color: #C6A15B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-details:hover {
+            background: #A98545;
+            border-color: #A98545;
+            color: #12192B;
+        }
+
+    .hrms-btn-delete {
+        background: #B23A48;
+        border-color: #B23A48;
+        color: #FBF8F1;
+    }
+
+        .hrms-btn-delete:hover {
+            background: #8F2E39;
+            border-color: #8F2E39;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-create {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-create:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+</style>
+
+
+<div class="hrms-customers-wrap">
+
+    <h1 class="text-center mb-4">
+        Customers
+    </h1>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover text-center align-middle shadow hrms-customers-table">
+
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Profile Picture</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var customer in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @customer.Id
+                        </td>
+
+                        <td>
+                            <img src="@customer.ImagePath"
+                                 alt="Customer Image"
+                                 class="hrms-customer-img" />
+                        </td>
+
+                        <td>
+                            @customer.FullName
+                        </td>
+
+                        <td>
+                            @customer.Phone
+                        </td>
+
+                        <td>
+
+                            <div class="d-flex justify-content-center gap-2">
+
+                                <a asp-controller="Customers"
+                                   asp-action="GetEditView"
+                                   asp-route-id="@customer.Id"
+                                   class="btn btn-sm hrms-btn-edit">
+                                    Edit
+                                </a>
+
+                                <a asp-controller="Customers"
+                                   asp-action="GetDetailsView"
+                                   asp-route-id="@customer.Id"
+                                   class="btn btn-sm hrms-btn-details">
+                                    Details
+                                </a>
+
+                                <a asp-controller="Customers"
+                                   asp-action="GetDeleteView"
+                                   asp-route-id="@customer.Id"
+                                   class="btn btn-sm hrms-btn-delete">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="mt-3">
+
+        <a asp-controller="Customers"
+           asp-action="GetCreateView"
+           class="btn hrms-btn-create">
+            Create Customer
+        </a>
+
+    </div>
+
+</div>

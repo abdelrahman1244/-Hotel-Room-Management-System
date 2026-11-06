@@ -1,0 +1,161 @@
+﻿@model Room
+
+<style>
+    .hrms-edit-wrap {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+        .hrms-edit-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-edit-card {
+        background: #FBF8F1;
+        border: 1px solid rgba(198, 161, 91, .3);
+        border-radius: .9rem;
+    }
+
+        .hrms-edit-card label {
+            color: #12192B;
+            font-weight: 600;
+        }
+
+        .hrms-edit-card .form-control {
+            border-color: rgba(198, 161, 91, .4);
+        }
+
+            .hrms-edit-card .form-control:focus {
+                border-color: #C6A15B;
+                box-shadow: 0 0 0 .2rem rgba(198, 161, 91, .15);
+            }
+
+    .hrms-btn-save {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-save:hover {
+            background: #252E46;
+            border-color: #252E46;
+            color: #FBF8F1;
+        }
+
+    .hrms-btn-back {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-back:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+</style>
+
+
+<div class="hrms-edit-wrap">
+
+    <h1 class="text-center mb-4">
+        Edit Room
+    </h1>
+
+
+    <div class="card shadow p-4 hrms-edit-card">
+
+        <form method="post"
+              asp-controller="Rooms"
+              asp-action="EditCurrent">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+
+            <!-- Room Number -->
+
+            <div class="mb-3">
+
+                <label asp-for="RoomNumber"
+                       class="form-label">
+                    Room Number
+                </label>
+
+                <input asp-for="RoomNumber"
+                       class="form-control"
+                       placeholder="Enter room number" />
+
+                <span asp-validation-for="RoomNumber"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Room Type -->
+
+            <div class="mb-3">
+
+                <label asp-for="Type"
+                       class="form-label">
+                    Room Type
+                </label>
+
+                <input asp-for="Type"
+                       class="form-control"
+                       placeholder="Enter room type" />
+
+                <span asp-validation-for="Type"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Price Per Night -->
+
+            <div class="mb-4">
+
+                <label asp-for="PricePerNight"
+                       class="form-label">
+                    Price Per Night
+                </label>
+
+                <input asp-for="PricePerNight"
+                       type="number"
+                       step="0.01"
+                       class="form-control"
+                       placeholder="Enter price per night" />
+
+                <span asp-validation-for="PricePerNight"
+                      class="text-danger"></span>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="d-flex justify-content-center gap-2">
+
+                <button type="submit"
+                        class="btn hrms-btn-save">
+                    Save Changes
+                </button>
+
+                <a asp-controller="Rooms"
+                   asp-action="Index"
+                   class="btn hrms-btn-back">
+                    Back
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

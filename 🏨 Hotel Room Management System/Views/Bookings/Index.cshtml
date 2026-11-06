@@ -1,0 +1,216 @@
+@model List<Booking>
+
+<style>
+    .hrms-table-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+        .hrms-table-wrap h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-table {
+        --bs-table-bg: #FBF8F1;
+    }
+
+        .hrms-table thead th {
+            background: #12192B !important;
+            color: #FBF8F1 !important;
+            font-weight: 600;
+            font-size: .85rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            border-color: #12192B !important;
+        }
+
+        .hrms-table tbody tr:hover {
+            background: #F3ECDA;
+        }
+
+        .hrms-table td,
+        .hrms-table th {
+            border-color: rgba(198, 161, 91, .3);
+            vertical-align: middle;
+        }
+
+    .hrms-btn-edit {
+        background: #C6A15B;
+        border-color: #C6A15B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-edit:hover {
+            background: #E7CC8B;
+            border-color: #E7CC8B;
+            color: #12192B;
+        }
+
+    .hrms-btn-create {
+        background: #12192B;
+        border-color: #12192B;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-create:hover {
+            background: #1C2748;
+            border-color: #1C2748;
+            color: #E7CC8B;
+        }
+
+    .hrms-btn-delete {
+        background: #B23A48;
+        border-color: #B23A48;
+        color: #FBF8F1;
+        font-weight: 600;
+    }
+
+        .hrms-btn-delete:hover {
+            background: #8F2E39;
+            border-color: #8F2E39;
+            color: #FBF8F1;
+        }
+
+    .hrms-link {
+        color: #12192B;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .hrms-link:hover {
+            color: #C6A15B;
+            text-decoration: underline;
+        }
+</style>
+
+
+<div class="hrms-table-wrap">
+
+    <h1 class="text-center mb-4">
+        Bookings
+    </h1>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover text-center align-middle shadow hrms-table">
+
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Room Number</th>
+                    <th>Customer Name</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var booking in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @booking.Id
+                            </td>
+
+
+                            <td>
+                                <a asp-controller="Rooms"
+                                   asp-action="GetDetailsView"
+                                   asp-route-id="@booking.RoomId"
+                                   class="hrms-link">
+
+                                    @booking.Room.RoomNumber
+
+                                </a>
+                            </td>
+
+
+                            <td>
+                                <a asp-controller="Customers"
+                                   asp-action="GetDetailsView"
+                                   asp-route-id="@booking.CustomerId"
+                                   class="hrms-link">
+
+                                    @booking.Customer.FullName
+
+                                </a>
+                            </td>
+
+
+                            <td>
+                                @booking.CheckIn.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+
+
+                            <td>
+                                @booking.CheckOut.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+
+
+                            <td>
+
+                                <div class="d-flex justify-content-center gap-2">
+
+                                    <a asp-controller="Bookings"
+                                       asp-action="GetEditView"
+                                       asp-route-id="@booking.Id"
+                                       class="btn btn-sm hrms-btn-edit">
+                                        Edit
+                                    </a>
+
+
+                                    <a asp-controller="Bookings"
+                                       asp-action="GetDeleteView"
+                                       asp-route-id="@booking.Id"
+                                       class="btn btn-sm hrms-btn-delete">
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-muted py-4">
+                            No bookings found.
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="mt-3">
+
+        <a asp-controller="Bookings"
+           asp-action="GetCreateView"
+           class="btn hrms-btn-create">
+
+            Create Booking
+
+        </a>
+
+    </div>
+
+</div>

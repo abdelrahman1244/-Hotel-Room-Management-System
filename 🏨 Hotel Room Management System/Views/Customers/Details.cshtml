@@ -1,0 +1,195 @@
+﻿
+@model Customer
+
+<style>
+    .hrms-details-wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+        .hrms-details-wrap h1,
+        .hrms-details-wrap h2 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #12192B;
+        }
+
+    .hrms-details-card {
+        background: #FBF8F1;
+        border: 1px solid rgba(198, 161, 91, .3);
+        border-radius: .9rem;
+    }
+
+    .hrms-details-table {
+        border: 1px solid rgba(198, 161, 91, .3);
+    }
+
+        .hrms-details-table thead th {
+            background: #12192B !important;
+            color: #FBF8F1 !important;
+            font-weight: 600;
+            font-size: .85rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            border-color: #12192B !important;
+        }
+
+        .hrms-details-table td,
+        .hrms-details-table th {
+            border-color: rgba(198, 161, 91, .3);
+            vertical-align: middle;
+        }
+
+    .hrms-customer-details-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #C6A15B;
+    }
+
+    .hrms-btn-back {
+        background: transparent;
+        border-color: #12192B;
+        color: #12192B;
+        font-weight: 600;
+    }
+
+        .hrms-btn-back:hover {
+            background: #12192B;
+            border-color: #12192B;
+            color: #FBF8F1;
+        }
+    .hrms-room-link {
+        color: #12192B;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .hrms-room-link:hover {
+            color: #C6A15B;
+            text-decoration: underline;
+        }
+</style>
+
+
+<div class="hrms-details-wrap">
+
+    <h1 class="text-center mb-4">
+        Customer Details
+    </h1>
+
+
+
+    <div class="card shadow p-4 mb-5 hrms-details-card">
+
+        <div class="text-center mb-4">
+
+            <img src="@Model.ImagePath"
+                 alt="Customer Image"
+                 class="hrms-customer-details-img" />
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered text-center align-middle mb-0 hrms-details-table">
+
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Full Name</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.FullName</td>
+                        <td>@Model.Phone</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <h2 class="text-center mb-4">
+        Booking History
+    </h2>
+
+
+    <div class="card shadow p-3 hrms-details-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover text-center align-middle mb-0 hrms-details-table">
+
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Room Number</th>
+                        <th>Room Type</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (ViewBag.Bookings != null && ViewBag.Bookings.Count > 0)
+                    {
+                        @foreach (var booking in ViewBag.Bookings)
+                        {
+                            <tr>
+                                <td>@booking.Id</td>
+                                <td>
+                                    <a asp-controller="Rooms"
+                                       asp-action="GetDetailsView"
+                                       asp-route-id="@booking.RoomId"
+                                       class="hrms-room-link">
+                                        @booking.Room.RoomNumber
+                                    </a>
+                                </td>
+                                <td>@booking.Room.Type</td>
+                                <td>@booking.CheckIn</td>
+                                <td>@booking.CheckOut</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-muted">
+                                No booking history found.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="mt-4">
+
+        <a asp-controller="Customers"
+           asp-action="Index"
+           class="btn hrms-btn-back">
+            Back
+        </a>
+
+    </div>
+
+</div>
